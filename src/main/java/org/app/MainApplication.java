@@ -24,7 +24,6 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        // Получаем MenuBarConfig из контекста и создаем меню-бар
         MenuBarConfig menuBarConfig = context.getBean(MenuBarConfig.class);
         var menuBar = menuBarConfig.createMenuBar();
 
