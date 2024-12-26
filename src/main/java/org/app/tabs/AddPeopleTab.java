@@ -2,7 +2,9 @@ package org.app.tabs;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AddPeopleTab {
 
     private VBox root;

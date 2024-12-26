@@ -28,11 +28,17 @@ public class MainApplication extends Application {
         MenuBarConfig menuBarConfig = context.getBean(MenuBarConfig.class);
         var menuBar = menuBarConfig.createMenuBar();
 
+        ShiftSettingsTab shiftSettingsTabBeen = context.getBean(ShiftSettingsTab.class);
+        AddPeopleTab addPeopleTabBeen = context.getBean(AddPeopleTab.class);
+
         TabPane tabPane = new TabPane();
 
-        Tab scheduleTab = new Tab("Графики выходов", new ScheduleTab(context).getRoot());
-        Tab shiftSettingsTab = new Tab("Настройка смен", new ShiftSettingsTab().getRoot());
-        Tab addPeopleTab = new Tab("Добавление людей", new AddPeopleTab().getRoot());
+        Tab scheduleTab = new Tab("Графики выходов", new ScheduleTab().getRoot());
+        scheduleTab.setClosable(false);
+        Tab shiftSettingsTab = new Tab("Настройка смен", shiftSettingsTabBeen.getRoot());
+        shiftSettingsTab.setClosable(false);
+        Tab addPeopleTab = new Tab("Добавление людей", addPeopleTabBeen.getRoot());
+        addPeopleTab.setClosable(false);
 
         tabPane.getSelectionModel().select(scheduleTab); // Устанавливаем первую вкладку как начальную
         tabPane.getTabs().addAll(scheduleTab, shiftSettingsTab, addPeopleTab);

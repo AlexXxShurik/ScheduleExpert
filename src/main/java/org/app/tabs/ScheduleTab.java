@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import org.app.ScheduleDisplay;
 import org.app.TableSchedule;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -19,24 +20,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+@Component
 public class ScheduleTab {
 
-    private VBox root;
-    private ComboBox<Integer> yearComboBox;
-    private ComboBox<Month> monthComboBox;
-    private ComboBox<String> shiftComboBox;
+    private final VBox root;
+    private final ComboBox<Integer> yearComboBox;
+    private final ComboBox<Month> monthComboBox;
+    private final ComboBox<String> shiftComboBox;
     private final TableSchedule tableSchedule;
     private final DatabaseGet databaseGet;
 
-    public ScheduleTab(AnnotationConfigApplicationContext context) {
+    public ScheduleTab() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         tableSchedule = context.getBean(TableSchedule.class);
         databaseGet = context.getBean(DatabaseGet.class);
-
-        initUI();
-    }
-
-    private void initUI() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
         yearComboBox = new ComboBox<>(FXCollections.observableArrayList(2023, 2024, 2025));
         yearComboBox.setValue(LocalDate.now().getYear());
@@ -57,9 +54,6 @@ public class ScheduleTab {
                 }
             }
         });
-
-
-
 
         monthComboBox.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -119,4 +113,3 @@ public class ScheduleTab {
         return root;
     }
 }
-

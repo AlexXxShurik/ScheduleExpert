@@ -2,6 +2,7 @@ package config;
 
 import database.DatabaseGet;
 import org.app.*;
+import org.app.tabs.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -46,4 +47,13 @@ public class AppConfig {
         return new ScheduleDisplay(tableSchedule);
     }
 
+    @Bean
+    public AddPeopleTab addPeopleTab() {
+        return new AddPeopleTab();
+    }
+
+    @Bean
+    public ShiftSettingsTab shiftSettingsTab() {
+        return new ShiftSettingsTab();
+    }
 }
