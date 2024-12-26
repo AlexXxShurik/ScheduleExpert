@@ -38,7 +38,7 @@ public class AppConfig {
     }
 
     @Bean
-    public DatabaseGet databasePrinter(JdbcTemplate jdbcTemplate) {
+    public DatabaseGet databaseGet(JdbcTemplate jdbcTemplate) {
         return new DatabaseGet(jdbcTemplate);
     }
 
@@ -53,7 +53,7 @@ public class AppConfig {
     }
 
     @Bean
-    public ShiftSettingsTab shiftSettingsTab() {
-        return new ShiftSettingsTab();
+    public ShiftSettingsTab shiftSettingsTab(DatabaseGet databaseGet) {
+        return new ShiftSettingsTab(databaseGet);
     }
 }

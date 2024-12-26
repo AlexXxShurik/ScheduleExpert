@@ -17,7 +17,7 @@ public class DatabaseGet {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ScheduleData> GetAllSchedules(LocalDate dateStart, LocalDate dateEnd, String shift) {
+    public List<ScheduleData> getAllSchedules(LocalDate dateStart, LocalDate dateEnd, String shift) {
         String sql = "WITH previous_records AS (\n" +
                 "    SELECT \n" +
                 "        e.employee_number,\n" +
@@ -69,5 +69,36 @@ public class DatabaseGet {
                         rs.getString("schedule_pattern")
                 )
         );
+    }
+
+    public List<PeopleData> getAllPeople(String shift) {
+        String sql = "SELECT * FROM employees WHERE shift = ?";
+        return jdbcTemplate.query(
+                sql,
+                new Object[]{shift},
+                (rs, rowNum) -> new PeopleData(
+                        rs.getInt("employee_number"),
+                        rs.getString("full_name"),
+                        rs.getString("shift")
+                )
+        );
+    }
+
+    public List<PatternsData> getAllPatterns() {
+        String sql = "SELECT * FROM schedule_patterns\n";
+        return jdbcTemplate.query(
+                sql,
+                new Object[]{},
+                (rs, rowNum) -> new PatternsData(
+                        rs.getInt("id"),
+                        rs.getString("schedule_pattern")
+                )
+        );
+    }
+
+    public void updatePersonShift(PeopleData person) {
+        String updateQuery = "UPDATE employees SET shift = ? WHERE employee_number = ?";
+
+        jdbcTemplate.update(updateQuery, person.getShift(), person.getEmployee_number());
     }
 }

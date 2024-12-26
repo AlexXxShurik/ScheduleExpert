@@ -68,7 +68,7 @@ public class ScheduleTab {
         });
 
         shiftComboBox = new ComboBox<>(FXCollections.observableArrayList(
-                databaseGet.GetAllSchedules(LocalDate.of(LocalDate.now().getYear(), 1, 1),
+                databaseGet.getAllSchedules(LocalDate.of(LocalDate.now().getYear(), 1, 1),
                                 LocalDate.of(LocalDate.now().getYear(), 12, 31),
                                 "%")
                         .stream()
@@ -97,7 +97,7 @@ public class ScheduleTab {
         Month month = monthComboBox.getValue();
         int daysInMonth = month.length(year % 4 == 0);
 
-        List<ScheduleData> schedules = databaseGet.GetAllSchedules(
+        List<ScheduleData> schedules = databaseGet.getAllSchedules(
                 LocalDate.of(year, month, 1),
                 LocalDate.of(year, month, daysInMonth),
                 shiftComboBox.getValue()
